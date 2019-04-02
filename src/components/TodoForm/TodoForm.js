@@ -10,8 +10,8 @@ class TodoForm extends Component {
   }
   render() {
     return (
-      <div classNameName="todoForm">
-        <form>
+      <div classNameName="container">
+        <form className="todoForm">
           <div className="form-group">
             <label for="newTask">New Task</label>
             <input type="text" className="form-control" id="newTask" aria-describedby="taskHelp" placeholder="Enter new task text" />
