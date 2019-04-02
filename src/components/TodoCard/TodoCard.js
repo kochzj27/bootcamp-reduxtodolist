@@ -4,7 +4,7 @@ import './TodoCard.css';
 const TodoCard = (props) => {
   return (
 
-    <div className="card">
+    <div className="card card-margin">
       <div className="card-body spaced">
         <div>{props.task}</div>
         <i class="fas fa-trash-alt" style={{ fontSize: '18pt' }}></i>
