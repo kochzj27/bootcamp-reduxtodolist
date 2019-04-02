@@ -12,8 +12,10 @@ class TodoDisplay extends Component {
 
   render() {
     // console.log('TD TL:', this.props.taskList)
-    let display = this.props.taskList.map((task, idx) => <TodoCard active={task.active} text={task.text} key={idx} id={task.id} deleteTask={this.props.deleteTask} updateStatus={this.props.updateStatus} editTask={this.props.editTask} setEditId={this.props.setEditId} editId={this.props.editId} />)
-
+    let display;
+    if (this.props.taskList && this.props.taskList.length > 0) {
+      display = this.props.taskList.map((task, idx) => <TodoCard active={task.active} text={task.text} key={idx} id={task.id} deleteTask={this.props.deleteTask} updateStatus={this.props.updateStatus} editTask={this.props.editTask} setEditId={this.props.setEditId} editId={this.props.editId} />)
+    }
     return (
       <div className="container todoDisplay">
         {display}

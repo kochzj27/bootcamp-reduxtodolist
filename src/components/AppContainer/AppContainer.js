@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import './AppContainer.css';
+
 import TodoForm from '../TodoForm/TodoForm';
 import TodoDisplay from '../TodoDisplay/TodoDisplay';
+
+
+import './AppContainer.css';
 
 /*
 create 1, delete 1, view and edit and update 1, view all
@@ -13,10 +16,10 @@ class AppContainer extends Component {
     this.state = {
       nextId: 2,
       editId: null,
-      tasks: [
-        { id: 0, text: "Task 1", active: true },
-        { id: 1, text: "Task 2", active: false },
-      ]
+      // tasks: [
+      //   { id: 0, text: "Task 1", active: true },
+      //   { id: 1, text: "Task 2", active: false },
+      // ]
     }
 
   }
@@ -90,7 +93,8 @@ class AppContainer extends Component {
   }
 
   render() {
-    // console.log(this.state)
+    console.log('state', this.state)
+    console.log('props', this.props);
     return (
       <div className="container appContainer">
         <br />

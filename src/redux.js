@@ -9,29 +9,78 @@ export const addTask = () => ({
   type: 'ADD_TASK',                        // <-- action.type
 });
 
-export const editTask = () => ({
-  type: 'EDIT_TASK',                        // <-- action.type
+export const updateNewTaskValue = (value) => ({
+  type: 'UPDATE_NEW_TASK_VALUE',
+  value
 });
 
-export const deleteTask = () => ({
-  type: 'DELETE_TASK',                        // <-- action.type
-});
+// export const updateTask = () => ({
+//   type: 'UPDATE_TASK',                        // <-- action.type
+// });
 
-export const getTasks = () => ({
-  type: 'GET_TASKS',                        // <-- action.type
-});
-
+// export const deleteTask = () => ({
+//   type: 'DELETE_TASK',                        // <-- action.type
+// });
 
 
 ///REDUCERS
-export const reducers = (state = initialState, action) => {
+export const reducers = (state = initialState1, action) => {
   switch (action.type) {
 
-    case 'GET_TASKS':
+    case 'ADD_TASK':
       console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
-      console.log(" -- REDUCER -- RETRIEVE_TASKS | state: ", state)
-      console.log(" -- REDUCER -- RETRIEVE_TASKS | action", action)
-      return state.tasks;
+      console.log(" -- REDUCER -- ADD_TASKS | state: ", state)
+      console.log(" -- REDUCER -- ADD_TASK | action", action)
+      id++;
+      return Object.assign(
+        {},
+        state,
+        {
+          tasks: [
+            ...state.tasks,
+            { id, text: state.newTaskValue, active: false }
+          ],
+          newTaskValue: ""
+        }
+      );
+
+    case 'UPDATE_NEW_TASK_VALUE':
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- UPDATE_NEW_TASK_VALUE | state: ", state)
+      console.log(" -- REDUCER -- UPDATE_NEW_TASK_VALUE | action: ", action)
+      console.log(" -- REDUCER -- UPDATE_NEW_TASK_VALUE | action.type: ", action.type)
+      console.log(" -- REDUCER -- UPDATE_NEW_TASK_VALUE | action.value: ", action.value)
+      return Object.assign(
+        {},
+        state,
+        { newTaskValue: action.value }
+      );
+
+    // case 'DELETE_TASK':
+    //   console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+    //   console.log(" -- REDUCER -- DELETE_TASK | state: ", state)
+    //   console.log(" -- REDUCER -- DELETE_TASK | action", action)
+    //   let deleteIndex = state.tasks.findIndex(obj => obj['id'] === action.id);
+    //   return {
+    //     ...state,
+    //     tasks: [
+    //       ...state.tasks.slice(0, deleteIndex),
+    //       ...state.tasks.slice(deleteIndex + 1),
+    //     ]
+    //   }
+
+    // case 'UPDATE_TASK':
+    //   console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+    //   console.log(" -- REDUCER -- UPDATE_TASK | state: ", state)
+    //   console.log(" -- REDUCER -- UPDATE_TASK | action", action)
+    //   let deleteIndex = state.tasks.findIndex(obj => obj['id'] === action.id);
+    //   return {
+    //     ...state,
+    //     tasks: [
+    //       ...state.tasks.slice(0, deleteIndex),
+    //       ...state.tasks.slice(deleteIndex + 1),
+    //     ]
+    //   }
 
     default:
       return state;
@@ -41,13 +90,13 @@ export const reducers = (state = initialState, action) => {
 
 // Initial State
 // Minimal representation of the data in the app
-let id = 4;
-const initialState = {
+let id = 3;
+const initialState1 = {
   tasks: [
-    { id: 1, title: 'first task', completed: false },
-    { id: 2, title: 'second task', completed: true },
-    { id: 3, title: 'third task', completed: true },
-    { id: 4, title: 'fourth task', completed: false },
+    { id: 0, text: 'first task', active: false },
+    { id: 1, text: 'second task', active: true },
+    { id: 2, text: 'third task', active: true },
+    { id: 3, text: 'fourth task', active: false },
   ],
   newTaskValue: "",
 };
@@ -60,11 +109,11 @@ const initialState = {
 
 
 // STORE -- store.js
-export function configureStore(initialState = initialState) { // initialState = initialState | {}
+export function configureStore(initialState = initialState1) { // initialState = initialState | {}
   const store = createStore(reducers, initialState);
+  console.log(store);
   return store;
 };
-
 
 
 export const store = configureStore();

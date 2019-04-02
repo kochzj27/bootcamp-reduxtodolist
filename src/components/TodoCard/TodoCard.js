@@ -43,11 +43,11 @@ class TodoCard extends Component {
   }
 
   render() {
-    console.log('TC TL:', this.props);
+    // console.log('TC TL:', this.props);
     return (
       <div className="card card-margin">
-        {console.log('state', this.state)}
-        {console.log('id', this.props.id)}
+        {/* {console.log('state', this.state)} */}
+        {/* {console.log('id', this.props.id)} */}
         {!this.state.editFlag ?
           <div className="card-body spaced">
             <i className="fas fa-edit" style={{ fontSize: '18pt' }} onClick={this.editClick}></i>
