@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './TodoDisplay.css';
+import TodoCard from '../TodoCard/TodoCard';
 
 class TodoDisplay extends Component {
   constructor(props) {
@@ -11,7 +12,12 @@ class TodoDisplay extends Component {
   render() {
     return (
       <div className="container todoDisplay">
-        display here
+
+        <TodoCard task='test task' />
+        <TodoCard task='test task' />
+        <TodoCard task='test task' />
+        <TodoCard task='test task' />
+
       </div>
     );
   }

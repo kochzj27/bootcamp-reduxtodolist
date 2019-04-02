@@ -10,15 +10,15 @@ class TodoForm extends Component {
   }
   render() {
     return (
-      <div className="todoForm">
+      <div classNameName="todoForm">
         <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">New Task</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter new task text" />
-            <small id="emailHelp" class="form-text text-muted">You can always delete a task later by clicking the trashcan.</small>
+          <div className="form-group">
+            <label for="newTask">New Task</label>
+            <input type="text" className="form-control" id="newTask" aria-describedby="taskHelp" placeholder="Enter new task text" />
+            <small id="taskHelp" className="form-text text-muted">You can toggle a completed task by double clicking and delete tasks by clicking the trash can.</small>
           </div>
 
-          <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Task</button>
+          <button type="submit" className="btn btn-dark"><i className="fas fa-plus-circle"></i> Add Task</button>
         </form>
       </div>
     );
