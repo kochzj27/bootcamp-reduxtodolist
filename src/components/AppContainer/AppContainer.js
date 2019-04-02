@@ -12,6 +12,7 @@ class AppContainer extends Component {
     super(props);
     this.state = {
       nextId: 2,
+      editId: null,
       tasks: [
         { id: 0, text: "Task 1", active: true },
         { id: 1, text: "Task 2", active: false },
@@ -23,13 +24,14 @@ class AppContainer extends Component {
 
   deleteTask = (id) => {
     // console.log('delete id:', id);
+    let idx = this.state.tasks.findIndex((element) => { return element.id === id });
     if (this.state.tasks.length === 1) {
       this.setState({
         tasks: [],
       });
     } else {
       this.setState({
-        tasks: [...this.state.tasks.slice(0, id), ...this.state.tasks.slice(id + 1)]
+        tasks: [...this.state.tasks.slice(0, idx), ...this.state.tasks.slice(idx + 1)]
       });
     }
   }
@@ -42,8 +44,23 @@ class AppContainer extends Component {
     });
   }
 
-  editTask = (props) => {
-    console.log('edit', props)
+  editTask = (id, text) => {
+    // console.log('edit', id, text);
+    let idx = this.state.tasks.findIndex((element) => { return element.id === id });
+    // console.log(idx);
+    if (idx === 0) {
+      this.setState({
+        tasks: [Object.assign({}, this.state.tasks[idx], { text }), ...this.state.tasks.slice(idx + 1)],
+        editId: null
+      })
+    } else {
+      this.setState({
+        tasks: [...this.state.tasks.slice(0, idx),
+        Object.assign({}, this.state.tasks[idx], { text })
+          , ...this.state.tasks.slice(idx + 1)],
+        editId: null
+      });
+    }
   }
 
   updateStatus = (id) => {
@@ -52,16 +69,28 @@ class AppContainer extends Component {
     let idx = this.state.tasks.findIndex((element) => { return element.id === id });
     // console.log(idx);
     let newStatus = !this.state.tasks[idx].active;
-    this.setState({
-      tasks: [...this.state.tasks.slice(0, id),
-      Object.assign({}, this.state.tasks[idx], { active: newStatus })
-        , ...this.state.tasks.slice(id + 1)]
-    });
+    if (idx === 0) {
+      this.setState({
+        tasks: [Object.assign({}, this.state.tasks[idx], { active: newStatus }), ...this.state.tasks.slice(idx + 1)]
+      })
+    } else {
+      this.setState({
+        tasks: [...this.state.tasks.slice(0, idx),
+        Object.assign({}, this.state.tasks[idx], { active: newStatus })
+          , ...this.state.tasks.slice(idx + 1)]
+      });
+    }
   }
 
 
+  setEditId = (id) => {
+    this.setState({
+      editId: id,
+    })
+  }
+
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <div className="container appContainer">
         <br />
@@ -69,7 +98,7 @@ class AppContainer extends Component {
         <hr />
         <TodoForm addTask={this.addTask} />
         <hr />
-        <TodoDisplay taskList={this.state.tasks} deleteTask={this.deleteTask} editTask={this.editTask} updateStatus={this.updateStatus} />
+        <TodoDisplay taskList={this.state.tasks} deleteTask={this.deleteTask} editTask={this.editTask} updateStatus={this.updateStatus} setEditId={this.setEditId} editId={this.state.editId} />
         <br />
       </div>
     );

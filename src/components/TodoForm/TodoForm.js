@@ -30,7 +30,7 @@ class TodoForm extends Component {
           <div className="form-group">
             <label htmlFor="newTask">New Task</label>
             <input type="text" className="form-control" id="newTask" name='newTask' aria-describedby="taskHelp" placeholder="Enter new task text" onChange={this.updateValue} value={this.state.newTask} />
-            <small id="taskHelp" className="form-text text-muted">You can toggle a completed task by clicking once, edit by double clicking and delete tasks by clicking the trash can.</small>
+            <small id="taskHelp" className="form-text text-muted">You can toggle a completed task by clicking on it, edit by clicking the edit icon and delete tasks by clicking the trash can icon.</small>
           </div>
 
           <button type="submit" className="btn btn-dark" disabled={this.state.newTask === ''}><i className="fas fa-plus-circle"></i> Add Task</button>
