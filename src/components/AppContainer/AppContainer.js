@@ -39,7 +39,7 @@ class AppContainer extends Component {
     this.setState({
       tasks: [...this.state.tasks, newTask],
       nextId: this.state.nextId + 1,
-    })
+    });
   }
 
   editTask = (props) => {

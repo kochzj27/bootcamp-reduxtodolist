@@ -11,3 +11,7 @@
 .striked {
   text-decoration: line-through;
 }
+
+.card-text{
+  font-size: 16pt;
+}
