@@ -47,7 +47,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addTask: (id) => dispatch(addTask(id)),
   updateNewTaskValue: (value) => dispatch(updateNewTaskValue(value)),
-  // toggleCompleteTask: (id) => dispatch(toggleCompleteTask(id)),
 })
 
 export default connect(

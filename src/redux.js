@@ -14,13 +14,21 @@ export const updateNewTaskValue = (value) => ({
   value
 });
 
-// export const updateTask = () => ({
-//   type: 'UPDATE_TASK',                        // <-- action.type
-// });
+export const editTask = (id, value) => ({
+  type: 'EDIT_TASK',
+  id,
+  value                       // <-- action.type
+});
 
-// export const deleteTask = () => ({
-//   type: 'DELETE_TASK',                        // <-- action.type
-// });
+export const deleteTask = (value) => ({
+  type: 'DELETE_TASK',
+  value                        // <-- action.type
+});
+
+export const updateStatus = (value) => ({
+  type: 'UPDATE_STATUS',
+  value                        // <-- action.type
+});
 
 
 ///REDUCERS
@@ -56,31 +64,58 @@ export const reducers = (state = initialState1, action) => {
         { newTaskValue: action.value }
       );
 
-    // case 'DELETE_TASK':
-    //   console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
-    //   console.log(" -- REDUCER -- DELETE_TASK | state: ", state)
-    //   console.log(" -- REDUCER -- DELETE_TASK | action", action)
-    //   let deleteIndex = state.tasks.findIndex(obj => obj['id'] === action.id);
-    //   return {
-    //     ...state,
-    //     tasks: [
-    //       ...state.tasks.slice(0, deleteIndex),
-    //       ...state.tasks.slice(deleteIndex + 1),
-    //     ]
-    //   }
+    case 'DELETE_TASK':
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- DELETE_TASK | state: ", state)
+      console.log(" -- REDUCER -- DELETE_TASK | action", action)
+      console.log(" -- REDUCER -- DELETE_TASK | action.value: ", action.value)
+      let idx = state.tasks.findIndex((element) => { return element.id === action.value });
+      if (state.tasks.length === 1) {
 
-    // case 'UPDATE_TASK':
-    //   console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
-    //   console.log(" -- REDUCER -- UPDATE_TASK | state: ", state)
-    //   console.log(" -- REDUCER -- UPDATE_TASK | action", action)
-    //   let deleteIndex = state.tasks.findIndex(obj => obj['id'] === action.id);
-    //   return {
-    //     ...state,
-    //     tasks: [
-    //       ...state.tasks.slice(0, deleteIndex),
-    //       ...state.tasks.slice(deleteIndex + 1),
-    //     ]
-    //   }
+        return { ...state, tasks: [] }
+
+      } else {
+
+        return { ...state, tasks: [...state.tasks.slice(0, idx), ...state.tasks.slice(idx + 1)] }
+
+      }
+
+    case 'UPDATE_STATUS':
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- UPDATE_STATUS | state: ", state)
+      console.log(" -- REDUCER -- UPDATE_STATUS | action", action)
+      let idx2 = state.tasks.findIndex((element) => { return element.id === action.value });
+      // console.log(idx);
+      let newStatus = !state.tasks[idx2].active;
+      if (idx2 === 0) {
+        return { ...state, tasks: [Object.assign({}, state.tasks[idx2], { active: newStatus }), ...state.tasks.slice(idx2 + 1)] }
+      } else {
+        return {
+          ...state, tasks: [...state.tasks.slice(0, idx2),
+          Object.assign({}, state.tasks[idx2], { active: newStatus })
+            , ...state.tasks.slice(idx2 + 1)]
+        }
+      }
+
+    case 'EDIT_TASK':
+      console.log(" -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --")
+      console.log(" -- REDUCER -- UPDATE_TASK | state: ", state)
+      console.log(" -- REDUCER -- UPDATE_TASK | action", action)
+      let idx3 = state.tasks.findIndex((element) => { return element.id === action.id });
+      // console.log(idx);
+      if (idx3 === 0) {
+        return {
+          ...state,
+          tasks: [Object.assign({}, state.tasks[idx3], { text: action.value }), ...state.tasks.slice(idx3 + 1)],
+        }
+      } else {
+        return {
+          ...state,
+          tasks: [...state.tasks.slice(0, idx3),
+          Object.assign({}, state.tasks[idx3], { text: action.value })
+            , ...state.tasks.slice(idx3 + 1)],
+        };
+      }
 
     default:
       return state;
@@ -110,7 +145,7 @@ const initialState1 = {
 
 // STORE -- store.js
 export function configureStore(initialState = initialState1) { // initialState = initialState | {}
-  const store = createStore(reducers, initialState,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+  const store = createStore(reducers, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
   console.log(store);
   return store;
 };

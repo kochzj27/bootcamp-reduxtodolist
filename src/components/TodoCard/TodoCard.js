@@ -7,12 +7,12 @@ class TodoCard extends Component {
     super(props);
     this.state = {
       editFlag: false,
-      task: this.props.text
+      task: this.props.text,
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.task !== nextProps.text) {
+    if (prevState.task !== nextProps.text && prevState.editFlag === false) {
       return {
         task: nextProps.text
       };
@@ -23,6 +23,7 @@ class TodoCard extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log('handle submit', this.state.task)
     event.preventDefault();
     this.props.editTask(this.props.id, this.state.task);
     this.setState({
@@ -37,6 +38,7 @@ class TodoCard extends Component {
   }
 
   updateTask = (event) => {
+    console.log(event.target.value);
     this.setState({
       task: event.target.value,
     });
@@ -59,7 +61,7 @@ class TodoCard extends Component {
             <form className="todoEditForm" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="editTask">Edit Task</label>
-                <input type="text" className="form-control" id="editTask" name='editTask' aria-describedby="taskHelp1" placeholder="Enter new task text" onChange={this.updateTask} value={this.state.task} />
+                <input type="text" className="form-control" id="editTask" name='editTask' aria-describedby="taskHelp1" placeholder="Enter new task text" onChange={this.updateTask} defaultValue={this.state.task} />
                 <small id="taskHelp1" className="form-text text-muted">Click the checkmark to submit changes.</small>
               </div>
               <button type="submit" className="btn btn-dark" disabled={this.state.task === ''}><i className="fas fa-check" style={{ fontSize: '18pt' }} ></i></button>
