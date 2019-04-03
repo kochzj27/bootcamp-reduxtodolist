@@ -110,7 +110,7 @@ const initialState1 = {
 
 // STORE -- store.js
 export function configureStore(initialState = initialState1) { // initialState = initialState | {}
-  const store = createStore(reducers, initialState);
+  const store = createStore(reducers, initialState,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
   console.log(store);
   return store;
 };
